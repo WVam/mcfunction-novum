@@ -943,15 +943,6 @@
 							{
 								"type": "end"
 							}
-						],
-						"structureSaveDestination": [
-							{
-								"type": "string",
-								"value": "string"
-							},
-							{
-								"type": "end"
-							}
 						]
 					}
 				},
@@ -982,12 +973,32 @@
 				}
 			]
 		},
+		"help": {
+			"name": "help",
+			"cycleMarkers": [
+				{
+					"type": "greedy",
+					"value": "command"
+				}
+			]
+		},
 		"kill": {
 			"name": "kill",
 			"cycleMarkers": [
 				{
 					"type": "entity",
 					"value": "vicitms"
+				}
+			]
+		},
+		"list": {
+			"name": "list",
+			"cycleMarkers": [
+				{
+					"type":"option",
+					"value": [
+						"uuids"
+					]
 				}
 			]
 		},
@@ -1975,6 +1986,15 @@
 				}
 			]
 		},
+		"teammsg": {
+			"name": "teammsg",
+			"cycleMarkers": [
+				{
+					"type": "greedy",
+					"value": "message"
+				}
+			]
+		},
 		"teleport": {
 			"name": "teleport",
 			"cycleMarkers": [
@@ -2124,6 +2144,14 @@
 					"value": "title"
 				}
 			]
+		},
+		"tm": {
+			"name": "tm",
+			"alias": "teammsg"
+		},
+		"tp": {
+			"name": "tp",
+			"alias": "teleport"
 		},
 		"trigger": {
 			"name": "trigger",

@@ -1,0 +1,7 @@
+[
+    "+ minecraft:axolotl_always_hostiles",
+    "+ minecraft:axolotl_hunt_targets",
+    "+ minecraft:freeze_hurts_extra_types",
+    "+ minecraft:freeze_immune_entity_types",
+    "+ minecraft:powder_snow_walkable_mobs"
+]

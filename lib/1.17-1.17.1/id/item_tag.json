@@ -1,0 +1,17 @@
+[
+    "+ minecraft:axolotl_tempt_items",
+    "+ minecraft:candles",
+    "+ minecraft:cluster_max_harvestables",
+    "+ minecraft:coal_ores",
+    "+ minecraft:copper_ores",
+    "+ minecraft:diamond_ores",
+    "+ minecraft:emerald_ores",
+    "+ minecraft:iron_ores",
+    "+ minecraft:lapis_ores",
+    "+ minecraft:redstone_ores",
+    "+ minecraft:fox_food",
+    "+ minecraft:freeze_immune_wearables",
+    "+ minecraft:ignored_by_piglin_babies",
+    "+ minecraft:occludes_vibration_signals",
+    "+ minecraft:piglin_food"
+]

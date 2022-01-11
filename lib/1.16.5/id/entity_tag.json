@@ -1,0 +1,8 @@
+[
+	"minecraft:player", 
+	"#minecraft:arrows",
+	"#minecraft:beehive_inhabitors",
+	"#minecraft:impact_projectiles",
+	"#minecraft:raiders",
+	"#minecraft:skeletons"
+]

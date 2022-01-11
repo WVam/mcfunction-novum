@@ -1,0 +1,17 @@
+[
+    "+ minecraft:animals_spawnable_on",
+    "+ minecraft:axolotls_spawnable_on",
+    "+ minecraft:azalea_grows_on",
+    "+ minecraft:azalea_root_replaceable",
+    "+ minecraft:big_dripleaf_placeable",
+    "+ minecraft:foxes_spawnable_on",
+    "+ minecraft:goats_spawnable_on",
+    "+ minecraft:mooshrooms_spawnable_on",
+    "+ minecraft:parrots_spawnable_on",
+    "+ minecraft:polar_bears_spawnable_on_in_frozen_ocean",
+    "+ minecraft:rabbits_spawnable_on",
+    "+ minecraft:replaceable_plants",
+    "+ minecraft:terracotta",
+    "+ minecraft:wolves_spawnable_on",
+    "~ minecraft:lava_pool_replaceables minecraft:lava_pool_stone_cannot_replace."
+]
