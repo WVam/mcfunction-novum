@@ -1,4 +1,4 @@
 [
-    "~ minecraft:block_marker minecraft:light",
+    "~ minecraft:light minecraft:block_marker",
     "- minecraft:barrier"
 ]
