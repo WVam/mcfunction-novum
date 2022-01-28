@@ -59,7 +59,6 @@
 		{
 			"match": "^#.*",
 			"name": "comment",
-
 			"captures": {
 				"0": {
 					"patterns": [
@@ -82,22 +81,6 @@
 		{
 			"match": "(?<!\\w)(\\d+(?=[bfsdl])[bfsdl]|([~\\-^]*\\d+|[~|^]))(?!\\w)",
 			"name": "number"
-		},
-		{
-			"match": "(?<=scoreboard objectives) (?:add|remove|setdisplay sidebar|modify) ([^\\s]{17,})",
-			"captures": {
-				"1": {
-					"name": "error"
-				}
-			}
-		},
-		{
-			"match": "(?<=scoreboard) (?:players (?:add|remove|set|get|reset) [^\\s]+) ([^\\s]{17,})",
-			"captures": {
-				"1": {
-					"name": "error"
-				}
-			}
 		},
 		{
 			"match": "(?<=team) (?:add|remove|join|empty|list) ([^\\s]{17,})",
