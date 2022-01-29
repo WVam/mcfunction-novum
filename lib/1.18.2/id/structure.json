@@ -1,0 +1,21 @@
+[
+	"~ buried_treasure minecraft:buried_treasure",
+	"~ endcity minecraft:endcity",
+	"~ fortress minecraft:fortress",
+	"~ mansion minecraft:mansion",
+	"~ mineshaft minecraft:mineshaft",
+	"~ monument minecraft:monument",
+	"~ nether_fossil minecraft:nether_fossil",
+	"~ ocean_ruin minecraft:ocean_ruin",
+	"~ pillager_outpost minecraft:pillager_outpost",
+	"~ shipwreck minecraft:shipwreck",
+	"~ stronghold minecraft:stronghold",
+	"~ desert_pyramid minecraft:desert_pyramid",
+	"~ igloo minecraft:igloo",
+	"~ jungle_pyramid minecraft:jungle_pyramid",
+	"~ swamp_hut minecraft:swamp_hut",
+	"~ village minecraft:village",
+	"~ bastion_remnant minecraft:bastion_remnant",
+	"~ ruined_portal minecraft:ruined_portal",
+    "~ geode minecraft:geode"
+]
