@@ -1,7 +1,7 @@
 const provider = require("./provider.js");
 const { setLists } = require("./provider.js");
 const shell = require("electron").shell;
-const versions = require("./versions.json");
+const versions = require("../lib/versions.json");
 
 let versionsEnum = versions.map((v,i) =>{return {value:i, description:v.name}});
 

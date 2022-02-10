@@ -17,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/jan00bl/mcfunction-novum"
   },
-  "main": "./lib/main",
+  "main": "./src/main",
   "license": "MIT",
   "engines": {
     "atom": "*"

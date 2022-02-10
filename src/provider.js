@@ -1,4 +1,4 @@
-const versionObjects = require("./versions.json");
+const versionObjects = require("../lib/versions.json");
 const versions = versionObjects.map(v => v.folder);
 
 const fs = require('fs');
@@ -110,7 +110,7 @@ function setLists(version) {
 }
 
 function getListStartingFolder(jsonName) {
-	let startingFolders = require("./IDStartFolder.json");
+	let startingFolders = require("../lib/IDStartFolder.json");
 
 	return startingFolders[jsonName.replace(".json","")];
 }
@@ -130,7 +130,7 @@ function setArrayList(jsonName, version) {
 		return [];
 	}
 
-	let list = require("./" + startingFolder + "/id/" + jsonName).slice();
+	let list = require("../lib/" + startingFolder + "/id/" + jsonName).slice();
 
 	let versionIndex = versions.indexOf(version);
 	let i = 1;
@@ -140,7 +140,7 @@ function setArrayList(jsonName, version) {
 		let cList;
 
 		try {
-			cList = require("./" + versions[i] + "/id/" + jsonName);
+			cList = require("../lib/" + versions[i] + "/id/" + jsonName);
 		} catch (error) {
 			i++;
 			continue;
@@ -167,7 +167,7 @@ function setObjectList(jsonName, version) {
 		return {};
 	}
 
-	let object = JSON.parse(JSON.stringify(require("./" + startingFolder + "/id/" + jsonName)));
+	let object = JSON.parse(JSON.stringify(require("../lib/" + startingFolder + "/id/" + jsonName)));
 
 	for (const key in object) {
 		if (object.hasOwnProperty(key)) {
@@ -182,7 +182,7 @@ function setObjectList(jsonName, version) {
 					let cList;
 
 					try {
-						cList = require("./" + versions[i] + "/id/" + jsonName)[key];
+						cList = require("../lib/" + versions[i] + "/id/" + jsonName)[key];
 					} catch (error) {
 						i++;
 						continue;
@@ -208,7 +208,7 @@ function setCommandList(version) {
 	var i = versions.length - 1;
 	while (versions.indexOf(version) <= i) {
 		try{
-			return require("./" + versions[i] + "/commands.json");
+			return require("../lib/" + versions[i] + "/commands.json");
 		} catch {}
 		i--;
 	}
@@ -348,7 +348,7 @@ function getCustomEntries(tagPath, extension, prefix = "") {
  */
 function icon(name) {
 	if (atom.config.get("mcfunction-novum.autocomplete.showIcons")) {
-		let svg = fs.readFileSync(path.resolve(__dirname + "/svgicon/", name), 'utf8');
+		let svg = fs.readFileSync(path.resolve(__dirname + "/../lib/svgicon/", name), 'utf8');
 		let subClassName = "";
 
 		if (name == "command.svg") {
