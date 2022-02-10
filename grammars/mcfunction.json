@@ -57,11 +57,16 @@
 			"name": "command"
 		},
 		{
-			"match": "^ *# *(?:(advancement|attribute|bossbar|clear|clone|data|datapack|defaultgamemode|difficulty|effect|enchant|execute|experience|fill|forceload|function|gamemode|gamerule|give|kill|locate|locatebiome|loot|me|msg|particle|playsound|recipe|reload|replaceitem|say|schedule|scoreboard|tag|team|seed|setblock|setworldspawn|spreadplayers|stopsound|summon|teleport|tellraw|tell|time|title|tp|trigger|w|weather|worldborder|xp|spawnpoint|spectate|item) )?.*",
+			"match": "#.*",
 			"name": "comment",
 			"captures": {
-				"1": {
-					"name": "command"
+				"0": {
+					"patterns": [
+						{
+							"match": "^#? *(advancement|attribute|bossbar|clear|clone|data|datapack|defaultgamemode|difficulty|effect|enchant|execute|experience|fill|forceload|function|gamemode|gamerule|give|kill|locate|locatebiome|loot|me|msg|particle|playsound|recipe|reload|replaceitem|say|schedule|scoreboard|tag|team|seed|setblock|setworldspawn|spreadplayers|stopsound|summon|teleport|tellraw|tell|time|title|tp|trigger|w|weather|worldborder|xp|spawnpoint|spectate|item).*",
+							"name": "command-start"
+						}
+					]
 				}
 			}
 		},
