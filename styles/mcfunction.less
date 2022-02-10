@@ -4,37 +4,9 @@
 // for a full listing of what's available.
 
 :root {
-	--mcfunction-novum-comment: inherit;
-	--mcfunction-novum-comment-out: average(@base-background-color,@syntax-color-keyword);
+	--mcfunction-novum-comment: #8A8A8A;
 	--mcfunction-novum-deactivated: inherit;
 }
-
-.syntax--string {
-	color: @syntax-color-snippet;
-}
-
-.syntax--comment {
-	.syntax--command-start {
-		color: var(--mcfunction-novum-deactivated) !important;
-	}
-}
-
-.syntax--number {
-	color: @syntax-color-class;
-}
-
-.syntax--error{
-	color: @text-color-error;
-}
-
-.syntax--operation{
-	color: @ui-site-color-5;
-}
-
-.syntax--execute{
-	color: lighten(@syntax-color-keyword, 15%, relative);
-}
-
 
 @import "ui-variables";
 @import (optional) "index.less";
@@ -67,54 +39,36 @@ i.icon {
 	float: none !important;
 }
 
+.highlighting-generator(@name,@color) {
+	@{name} {
+		color: @color;
+	}
+	.syntax--comment {
+		@{name} {
+			color: var(--mcfunction-novum-deactivated-,mix(@base-background-color,@color,20%));
+		}
+	}
+}
+
 .syntax--source.syntax--mcfunction {
-
-	.syntax--selector {
-		color: @syntax-color-function;
-	}
-
-	.syntax--argument {
-
-		.syntax--name {
-			color: @syntax-color-tag;
-		}
-
-		.syntax--value {
-			.syntax--string;
-		}
-	}
-
-	.syntax--state {
-
-		.syntax--name {
-			color: @syntax-color-tag;
-		}
-
-		.syntax--value {
-			.syntax--string;
-		}
-	}
-
-	.syntax--nbt {
-
-		.syntax--key {
-			color: @syntax-color-tag;
-		}
-
-		.syntax--value {
-			.syntax--string;
-		}
-	}
-
-	.syntax--command {
-		color: @syntax-color-keyword;
-	}
-
-	.syntax--coord {
-		color: @syntax-color-constant;
-	}
-
-	.syntax--uuid {
-		color: @syntax-color-variable;
+	.highlighting-generator(~".syntax--selector",@syntax-color-function);
+	.highlighting-generator(~".syntax--argument, .syntax--name",@syntax-color-tag);
+	.highlighting-generator(~".syntax--argument, .syntax--value",@syntax-color-snippet);
+	.highlighting-generator(~".syntax--state, .syntax--name",@syntax-color-tag);
+	.highlighting-generator(~".syntax--state, .syntax--value",@syntax-color-snippet);
+	.highlighting-generator(~".syntax--nbt, .syntax--key",@syntax-color-tag);
+	.highlighting-generator(~".syntax--nbt, .syntax--value",@syntax-color-snippet);
+	.highlighting-generator(~".syntax--command",@syntax-color-keyword);
+	.highlighting-generator(~".syntax--coord",@syntax-color-constant);
+	.highlighting-generator(~".syntax--uuid",@syntax-color-variable);
+	.highlighting-generator(~".syntax--execute",lighten(@syntax-color-keyword, 15%, relative));
+	.highlighting-generator(~".syntax--operation",@ui-site-color-5);
+	.highlighting-generator(~".syntax--error",@text-color-error);
+	.highlighting-generator(~".syntax--string",@syntax-color-snippet);
+	.highlighting-generator(~".syntax--number",@syntax-color-class);
+	
+	
+	.syntax--comment {
+		color: var(--mcfunction-novum-comment);
 	}
 }

@@ -159,13 +159,7 @@ function setIconColor(color) {
 }
 
 function setCommentOutHighlighting(highlight) {
-	let color;
-	if(highlight) {
-		color = getComputedStyle(document.documentElement).getPropertyValue("--mcfunction-novum-comment-out");
-	} else {
-		color = getComputedStyle(document.documentElement).getPropertyValue("--mcfunction-novum-comment");
-	}
-	document.documentElement.style.setProperty("--mcfunction-novum-deactivated", color);
+	document.documentElement.style.setProperty("--mcfunction-novum-deactivated", highlight ? "inherit" : getComputedStyle(document.documentElement).getPropertyValue("--mcfunction-novum-comment") );
 }
 
 function moveSettings() {
