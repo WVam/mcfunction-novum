@@ -53,29 +53,28 @@
 			"include": "#nbt-array"
 		},
 		{
-			"match": "(?:^|(?<=run ))(?:advancement|attribute|bossbar|clear|clone|data|datapack|defaultgamemode|difficulty|effect|enchant|execute|experience|fill|forceload|function|gamemode|gamerule|give|kill|locate|locatebiome|loot|me|msg|particle|playsound|recipe|reload|replaceitem|say|schedule|scoreboard|tag|team|seed|setblock|setworldspawn|spreadplayers|stopsound|summon|teleport|tellraw|tell|time|title|tp|trigger|w|weather|worldborder|xp|spawnpoint|spectate|item)\\b",
+			"match": "(?:^ *|(?<=run ))(?:advancement|attribute|bossbar|clear|clone|data|datapack|defaultgamemode|difficulty|effect|enchant|execute|experience|fill|forceload|function|gamemode|gamerule|give|kill|locate|locatebiome|loot|me|msg|particle|playsound|recipe|reload|replaceitem|say|schedule|scoreboard|tag|team|seed|setblock|setworldspawn|spreadplayers|stopsound|summon|teleport|tellraw|tell|time|title|tp|trigger|w|weather|worldborder|xp|spawnpoint|spectate|item)\\b",
 			"name": "command"
 		},
 		{
-			"match": "^#.*",
+			"match": "^ *# *(?:(advancement|attribute|bossbar|clear|clone|data|datapack|defaultgamemode|difficulty|effect|enchant|execute|experience|fill|forceload|function|gamemode|gamerule|give|kill|locate|locatebiome|loot|me|msg|particle|playsound|recipe|reload|replaceitem|say|schedule|scoreboard|tag|team|seed|setblock|setworldspawn|spreadplayers|stopsound|summon|teleport|tellraw|tell|time|title|tp|trigger|w|weather|worldborder|xp|spawnpoint|spectate|item) )?.*",
 			"name": "comment",
 			"captures": {
-				"0": {
-					"patterns": [
-						{
-							"match": "^#?(advancement|attribute|bossbar|clear|clone|data|datapack|defaultgamemode|difficulty|effect|enchant|execute|experience|fill|forceload|function|gamemode|gamerule|give|kill|locate|locatebiome|loot|me|msg|particle|playsound|recipe|reload|replaceitem|say|schedule|scoreboard|tag|team|seed|setblock|setworldspawn|spreadplayers|stopsound|summon|teleport|tellraw|tell|time|title|tp|trigger|w|weather|worldborder|xp|spawnpoint|spectate|item).*",
-							"name": "command-start"
-						}
-					]
+				"1": {
+					"name": "command"
 				}
 			}
+		},
+		{
+			"match": "[0-9a-fA-F]{1,8}(?:-[0-9a-fA-F]{1,4}){3}-[0-9a-fA-F]{1,12}|[0-9a-fA-F]{32}",
+			"name": "uuid"
 		},
 		{
 			"match": "(?: (?:[~\\^]-?(?:\\d*\\.)?\\d*|-?(?:\\d*\\.)?\\d+)){3}",
 			"name": "coord"
 		},
 		{
-			"match": "^\\/.+",
+			"match": "^ *\\/.*",
 			"name": "error"
 		},
 		{
