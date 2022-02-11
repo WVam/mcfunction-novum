@@ -45,19 +45,19 @@ i.icon {
 	}
 	.syntax--comment {
 		@{name} {
-			color: var(--mcfunction-novum-deactivated-,mix(@base-background-color,@color,20%));
+			color: var(--mcfunction-novum-deactivated,mix(@base-background-color,@color,20%));
 		}
 	}
 }
 
 .syntax--source.syntax--mcfunction {
 	.highlighting-generator(~".syntax--selector",@syntax-color-function);
-	.highlighting-generator(~".syntax--argument, .syntax--name",@syntax-color-tag);
-	.highlighting-generator(~".syntax--argument, .syntax--value",@syntax-color-snippet);
-	.highlighting-generator(~".syntax--state, .syntax--name",@syntax-color-tag);
-	.highlighting-generator(~".syntax--state, .syntax--value",@syntax-color-snippet);
-	.highlighting-generator(~".syntax--nbt, .syntax--key",@syntax-color-tag);
-	.highlighting-generator(~".syntax--nbt, .syntax--value",@syntax-color-snippet);
+	.highlighting-generator(~".syntax--argument .syntax--name",@syntax-color-tag);
+	.highlighting-generator(~".syntax--argument .syntax--value",@syntax-color-snippet);
+	.highlighting-generator(~".syntax--state .syntax--name",@syntax-color-tag);
+	.highlighting-generator(~".syntax--state .syntax--value",@syntax-color-snippet);
+	.highlighting-generator(~".syntax--nbt .syntax--key",@syntax-color-tag);
+	.highlighting-generator(~".syntax--nbt .syntax--value",@syntax-color-snippet);
 	.highlighting-generator(~".syntax--command",@syntax-color-keyword);
 	.highlighting-generator(~".syntax--coord",@syntax-color-constant);
 	.highlighting-generator(~".syntax--uuid",@syntax-color-variable);
