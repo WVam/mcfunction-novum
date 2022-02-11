@@ -697,16 +697,8 @@
 					"value": [
 						"start",
 						"stop",
-						"function"
-					],
-					"change": {
-						"function": [
-							{
-								"type": "function",
-								"value": "function"
-							}
-						]
-					}
+						"report"
+					]
 				}
 			]
 		},
@@ -1046,6 +1038,16 @@
 				}
 			]
 		},
+		"help": {
+			"op-level": 0,
+			"name": "help",
+			"cycleMarkers": [
+				{
+					"type": "greedy",
+					"value": "command"
+				}
+			]
+		},
 		"kick": {
 			"op-level": 3,
 			"name": "kick",
@@ -1057,16 +1059,6 @@
 				{
 					"type": "greedy",
 					"value": "reason"
-				}
-			]
-		},
-		"help": {
-			"op-level": 0,
-			"name": "help",
-			"cycleMarkers": [
-				{
-					"type": "greedy",
-					"value": "command"
 				}
 			]
 		},
@@ -1213,6 +1205,20 @@
 				}
 			]
 		},
+		"me": {
+			"op-level": 0,
+			"name": "me",
+			"cycleMarkers": [
+				{
+					"type": "greedy",
+					"value": "action"
+				}
+			]
+		},
+		"msg": {
+			"name": "msg",
+			"alias": "tell"
+		},
 		"op": {
 			"op-level": 3,
 			"name": "op",
@@ -1242,20 +1248,6 @@
 					"value": "target-ip"
 				}
 			]
-		},
-		"me": {
-			"op-level": 0,
-			"name": "me",
-			"cycleMarkers": [
-				{
-					"type": "greedy",
-					"value": "action"
-				}
-			]
-		},
-		"msg": {
-			"name": "msg",
-			"alias": "tell"
 		},
 		"particle": {
 			"name": "particle",
@@ -1395,6 +1387,11 @@
 					"type": "recipe",
 					"value": "recipe"
 				}
+			]
+		},
+		"reload": {
+			"name": "reload",
+			"cycleMarkers": [
 			]
 		},
 		"replaceitem": {

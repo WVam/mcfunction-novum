@@ -164,6 +164,47 @@
 				}
 			]
 		},
+		"ban": {
+			"op-level": 3,
+			"name": "ban",
+			"cycleMarkers": [
+				{
+					"type": "entity",
+					"value": "targets"
+				},
+				{
+					"type": "greedy",
+					"value": "reason"
+				}
+			]
+		},
+		"ban-ip": {
+			"op-level": 3,
+			"name": "ban-ip",
+			"cycleMarkers": [
+				{
+					"type": "string",
+					"value": "target-ip"
+				},
+				{
+					"type": "greedy",
+					"value": "reason"
+				}
+			]
+		},
+		"banlist": {
+			"op-level": 3,
+			"name": "banlist",
+			"cycleMarkers": [
+				{
+					"type": "option",
+					"value": [
+						"ips",
+						"players"
+					]
+				}
+			]
+		},
 		"bossbar": {
 			"name": "bossbar",
 			"cycleMarkers": [
@@ -647,6 +688,28 @@
 				}
 			]
 		},
+		"debug": {
+			"op-level": 3,
+			"name": "debug",
+			"cycleMarkers": [
+				{
+					"type": "option",
+					"value": [
+						"start",
+						"stop",
+						"function"
+					],
+					"change": {
+						"function": [
+							{
+								"type": "function",
+								"value": "function"
+							}
+						]
+					}
+				}
+			]
+		},
 		"defaultgamemode": {
 			"name": "defaultgamemode",
 			"cycleMarkers": [
@@ -658,6 +721,16 @@
 						"spectator",
 						"survival"
 					]
+				}
+			]
+		},
+		"deop": {
+			"op-level": 3,
+			"name": "deop",
+			"cycleMarkers": [
+				{
+					"type": "entity",
+					"value": "targets"
 				}
 			]
 		},
@@ -983,6 +1056,7 @@
 			]
 		},
 		"help": {
+			"op-level": 0,
 			"name": "help",
 			"cycleMarkers": [
 				{
@@ -1113,6 +1187,20 @@
 				}
 			]
 		},
+		"kick": {
+			"op-level": 3,
+			"name": "kick",
+			"cycleMarkers": [
+				{
+					"type": "entity",
+					"value": "targets"
+				},
+				{
+					"type": "greedy",
+					"value": "reason"
+				}
+			]
+		},
 		"kill": {
 			"name": "kill",
 			"cycleMarkers": [
@@ -1123,6 +1211,7 @@
 			]
 		},
 		"list": {
+			"op-level": 0,
 			"name": "list",
 			"cycleMarkers": [
 				{
@@ -1256,6 +1345,7 @@
 			]
 		},
 		"me": {
+			"op-level": 0,
 			"name": "me",
 			"cycleMarkers": [
 				{
@@ -1267,6 +1357,36 @@
 		"msg": {
 			"name": "msg",
 			"alias": "tell"
+		},
+		"op": {
+			"op-level": 3,
+			"name": "op",
+			"cycleMarkers": [
+				{
+					"type": "entity",
+					"value": "targets"
+				}
+			]
+		},
+		"pardon": {
+			"op-level": 3,
+			"name": "pardon",
+			"cycleMarkers": [
+				{
+					"type": "entity",
+					"value": "targets"
+				}
+			]
+		},
+		"pardon-ip": {
+			"op-level": 3,
+			"name": "pardon-ip",
+			"cycleMarkers": [
+				{
+					"type": "string",
+					"value": "target-ip"
+				}
+			]
 		},
 		"particle": {
 			"name": "particle",
@@ -1334,6 +1454,19 @@
 				}
 			]
 		},
+		"perf": {
+			"op-level": 4,
+			"name": "perf",
+			"cycleMarkers": [
+				{
+					"type": "option",
+					"value": [
+						"start",
+						"stop"
+					]
+				}
+			]
+		},
 		"playsound": {
 			"name": "playsound",
 			"cycleMarkers": [
@@ -1378,6 +1511,16 @@
 				}
 			]
 		},
+		"publish": {
+			"op-level": 4,
+			"name": "publish",
+			"cycleMarkers": [
+				{
+					"type": "string",
+					"value": "port"
+				}
+			]
+		},
 		"recipe": {
 			"name": "recipe",
 			"cycleMarkers": [
@@ -1396,6 +1539,29 @@
 					"type": "recipe",
 					"value": "recipe"
 				}
+			]
+		},
+		"reload": {
+			"name": "reload",
+			"cycleMarkers": [
+			]
+		},
+		"save-all": {
+			"op-level": 4,
+			"name": "save-all",
+			"cycleMarkers": [
+			]
+		},
+		"save-off": {
+			"op-level": 4,
+			"name": "save-off",
+			"cycleMarkers": [
+			]
+		},
+		"save-on": {
+			"op-level": 4,
+			"name": "save-on",
+			"cycleMarkers": [
 			]
 		},
 		"say": {
@@ -1698,6 +1864,7 @@
 			]
 		},
 		"seed": {
+			"op-level": 0,
 			"name": "seed",
 			"cycleMarkers": []
 		},
@@ -1719,6 +1886,16 @@
 						"keep",
 						"replace"
 					]
+				}
+			]
+		},
+		"setidletimeout": {
+			"op-level": 3,
+			"name": "setidletimeout",
+			"cycleMarkers": [
+				{
+					"type": "string",
+					"value": "minutes"
 				}
 			]
 		},
@@ -1811,6 +1988,12 @@
 					"type": "entity",
 					"value": "targets"
 				}
+			]
+		},
+		"stop": {
+			"op-level": 4,
+			"name": "stop",
+			"cycleMarkers": [
 			]
 		},
 		"stopsound": {
@@ -2080,6 +2263,7 @@
 			]
 		},
 		"teammsg": {
+			"op-level": 0,
 			"name": "teammsg",
 			"cycleMarkers": [
 				{
@@ -2114,6 +2298,7 @@
 			]
 		},
 		"tell": {
+			"op-level": 0,
 			"name": "tell",
 			"cycleMarkers": [
 				{
@@ -2247,6 +2432,7 @@
 			"alias": "teleport"
 		},
 		"trigger": {
+			"op-level": 0,
 			"name": "trigger",
 			"cycleMarkers": [
 				{
@@ -2284,6 +2470,37 @@
 				{
 					"type": "string",
 					"value": "duration"
+				}
+			]
+		},
+		"whitelist": {
+			"op-level": 3,
+			"name": "whitelist",
+			"cycleMarkers": [
+				{
+					"type": "option",
+					"value": [
+						"add",
+						"list",
+						"off",
+						"on",
+						"reload",
+						"remove"
+					],
+					"change": {
+						"add": [
+							{
+								"type": "entity",
+								"value": "targets"
+							}
+						],
+						"remove": [
+							{
+								"type": "entity",
+								"value": "targets"
+							}
+						]
+					}
 				}
 			]
 		},
