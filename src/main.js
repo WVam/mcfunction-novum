@@ -35,26 +35,39 @@ module.exports = {
 					enum: versionsEnum.reverse(),
 					order: 1
 				},
+				opLevel: {
+					title: "Permission Level",
+					description: "Change the minecraft version of the autocomplete",
+					type: "integer",
+					default: 2,
+					enum: [
+						{ value: 0, description: "0/1: No permission" },
+						{ value: 2, description: "2: Cheat commands" },
+						{ value: 3, description: "3: Multiplayer management" },
+						{ value: 4, description: "4: Server management" },
+					],
+					order: 2
+				},
 				iconColor: {
 					title: "Icon Color",
 					description: "Choose the color of the icons in the suggestion box",
 					type: "color",
 					default: "#009688",
-					order: 2
+					order: 3
 				},
 				showIcons: {
 					title: "Show Icons",
 					description: "Determines if custom icons are shown in the suggestion box. If this setting is deactivated, characters are used as icons",
 					type: "boolean",
 					default: true,
-					order: 3
+					order: 4
 				}
 			}
 		},
 		syntaxHighlighting: {
 			title: "Syntax Highlighting",
 			type: "object",
-			order: 4,
+			order: 5,
 			properties: {
 				commentOut: {
 					title: "Enable Comment Out Highlighting",

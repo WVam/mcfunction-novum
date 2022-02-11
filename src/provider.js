@@ -39,7 +39,7 @@ features = [];
  * @param {String} version - minecraft version
  */
 function setLists(version) {
-	commands = setCommandList(version);
+	commands = require("../lib/" + version + "/commands.json");
 
 	biomes = setArrayList("biome.json", version);
 	blocks = setArrayList("block.json", version);
@@ -195,26 +195,6 @@ function setObjectList(jsonName, version) {
 		}
 	}
 	return object;
-}
-
-/**
- * returns the commands from the last versions with defined commands
- *
- * @param {String} version - name of the minecraft version
- *
- * @return {Object} object with the commands
- */
-function setCommandList(version) {
-	var i = versions.length - 1;
-	while (versions.indexOf(version) <= i) {
-		try{
-			return require("../lib/" + versions[i] + "/commands.json");
-		} catch {}
-		i--;
-	}
-	// this should never be reached!
-	console.log("How?")
-	return {"commands":{},"reference":{}};
 }
 
 /**
@@ -954,15 +934,19 @@ function runCycle(args, cycle) {
  */
 function getCommandOption(text) {
 	let out = [];
+	const maxOpLevel = atom.config.get("mcfunction-novum.autocomplete.opLevel");
 	for (let cmd of Object.values(commands["commands"])) {
 		if (cmd["name"].startsWith(text)) {
-			let cmdObj = {
-				text: cmd["name"],
-				type: "command",
-				iconHTML: icon("command.svg"),
-				command: cmd
-			};
-			out.push(cmdObj);
+			const opLevel = cmd["alias"] ? commands["commands"][cmd["alias"]]["op-level"] : cmd["op-level"];
+			if ((opLevel === undefined ? 2 : opLevel) <= maxOpLevel) {
+				let cmdObj = {
+					text: cmd["name"],
+					type: "command",
+					iconHTML: icon("command.svg"),
+					command: cmd
+				};
+				out.push(cmdObj);
+			}
 		}
 	}
 	out.sort(compareOut);
