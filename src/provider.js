@@ -109,6 +109,12 @@ function setLists(version) {
 	lootItems.push("offhand");
 }
 
+/**
+ * Get the first list of a type on which the versions changes are applied
+ *
+ * @param {String} jsonName - name of the JSON file
+ * @return {String} name of the starting folder
+ */
 function getListStartingFolder(jsonName) {
 	let startingFolders = require("../lib/IDStartFolder.json");
 
