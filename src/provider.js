@@ -138,24 +138,7 @@ function setArrayList(jsonName, version) {
 
 	let list = require("../lib/" + startingFolder + "/id/" + jsonName).slice();
 
-	let versionIndex = versions.indexOf(version);
-	let i = 1;
-
-	while(i <= versionIndex && i < versions.length) {
-
-		let cList;
-
-		try {
-			cList = require("../lib/" + versions[i] + "/id/" + jsonName);
-		} catch (error) {
-			i++;
-			continue;
-		}
-
-		changeList(list, cList);
-		i++;
-	}
-	return list;
+	return iterateLists(version, jsonName, list);
 }
 
 /**
@@ -177,30 +160,48 @@ function setObjectList(jsonName, version) {
 
 	for (const key in object) {
 		if (object.hasOwnProperty(key)) {
-			const element = object[key];
+			let element = object[key];
 
-			if(Array.isArray(element)) {
-				let list = element;
-				let i = versions.indexOf(version);
-
-				while ((i + 1) < versions.length) {
-
-					let cList;
-
-					try {
-						cList = require("../lib/" + versions[i] + "/id/" + jsonName)[key];
-					} catch (error) {
-						i++;
-						continue;
-					}
-
-					changeList(list, cList);
-					i++;
-				}
+			if (Array.isArray(element)) {
+				iterateLists(version, jsonName, element, key);
 			}
 		}
 	}
 	return object;
+}
+
+/**
+ * Iterates over the version changes and applies those changes to the original list
+ *
+ * @param {String} jsonName - name of the JSON file
+ * @param {String} version - name of the minecraft version
+ * @param {(String|Object)[]} list - original list to change
+ *
+ * @return {(String|Object)[]} - list with all changes applied
+ */
+function iterateLists(version, jsonName, list, key = null) {
+	let versionIndex = versions.indexOf(version);
+	let i = 1;
+
+	while (i <= versionIndex && i < versions.length) {
+
+		let cList;
+
+		try {
+			cList = require("../lib/" + versions[i] + "/id/" + jsonName);
+			if (key) {
+				cList = cList[key];
+			}
+			if(!cList) throw {};
+		} catch (error) {
+			i++;
+			continue;
+		}
+
+		changeList(list, cList);
+		i++;
+	}
+	return list;
 }
 
 /**
