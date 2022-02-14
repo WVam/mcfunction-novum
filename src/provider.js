@@ -577,55 +577,57 @@ function suggestionList(type, value, lastText, negatable) {
 			//selector: @a[parameter, parameter, ...]; parameter: argument=value
 
 			//selector without parameters
-			if (lastText.search(/[@][a-z][\[]/) == -1) {
+			
+			if (!/^@[a-z]\[/.test(lastText)) {
 				suggestions(selectors["selector"], lastText, "entity-selector", icon("selector.svg"), out, negatable);
 
 				//selector with parameters
 			} else {
-
-				//get everything behind the first square bracket
-				let testText = lastText.split(/[@][a-z][\[]/)[1];
-
-				//test if not in brackets or strings
-				let block = [];
-				for (let c of testText) {
-					if (block[block.length-1] == "\\") { // When escaped cancel
-						block.pop();
-					} else if (c == "\\") { // Escape next char
-						block.push("\\");
-					} else if (block[block.length-1] == "\"" && c != "\"") { // When in String and String does not end cancel
-					} else if (c == "{") {
-						block.push("}");
-					} else if (c == "[") {
-						block.push("]");
-					} else if (block[block.length-1] != "\"" && c == "\"") { // When not in String and c is '"'
-						block.push("\"");
-					} else if (c == block[block.length - 1]) {
-						block.pop();
-					}
-				}
-				if (block.length == 0) {
-
-					//get current paramater
-					testText = testText.split(",");
-					testText = testText[testText.length - 1];
-
-					//current parameter is an argument
-					if (testText.indexOf("=") == -1) {
-						let sel = [];
-						for (let v of selectors["test"]) {
-							sel.push(v["name"]);
+				const parametersString = lastText.replace(/^ *@[a-z]\[/,"");
+				
+				let quote;
+				let brackets = [];
+				let parametersArray = [];
+				let lastParameter = "";
+				
+				parametersString.split("").reduce( (backslash,char) => { // reduce is used here to keep track of the backslash
+					if (quote) {
+						if (char === "\\") {
+							lastParameter += char;
+							return !backslash;
+						} else if (!backslash && quote == char) {
+							quote = false;
 						}
-						suggestions(sel, testText, "selector-test", icon("option.svg"), out, negatable);
-
-						//current parameter is a value
 					} else {
-						let selType = testText.split("=")[0];
-						let selText = testText.split("=")[1];
-
+						if (char === '"' || char === "'") {
+							quote = char;
+						} else if (char === "{") {
+							brackets.push("}");
+						} else if (char === "[") {
+							brackets.push("]");
+						} else if (char === brackets[brackets.length-1]) { // current bracket is closed
+							brackets.pop();
+						} else if (char === "," && !brackets.length) {
+							parametersArray.push(lastParameter);
+							lastParameter = "";
+							return;
+						}
+					}
+					lastParameter += char;
+				},undefined)
+				
+				console.log(parametersArray.concat([lastParameter]).map(v=>v.trim()))
+				
+				if (!quote && !brackets.length) {
+					const {groups:{key,value}} = lastParameter.match(/^ *(?<key>[^=]*?) *(?:= *(?<value>.*?) *)?$/);
+					console.log({key:key,value:value})
+					
+					if (value === undefined) { //current parameter is an argument
+						suggestions(selectors["test"].map( v => v["name"] ), key, "selector-test", icon("option.svg"), out, negatable);
+					} else { //current parameter is a value
 						for (let v of selectors["test"]) {
-							if (v["name"] == selType) {
-								out = suggestionList(v["type"], v["value"], selText, v["negatable"]);
+							if (v["name"] == key) {
+								out = suggestionList(v["type"], v["value"], value, v["negatable"]);
 							}
 						}
 					}
@@ -740,52 +742,30 @@ function suggestionList(type, value, lastText, negatable) {
  */
 function getCurrentCommand(editor, bufferPosition) {
 	let text = editor.getTextInBufferRange([[bufferPosition.row, 0], bufferPosition]);
-	let matches = text.match(/^\w+/g);
-	if (matches == null) return null;
-	let cmd = matches[0];
-	return cmd;
+	let match = text.match(/^\w+/);
+	if (match) {
+		return match[0];
+	}
 }
 
 /**
  * Gets cycle object of the current command argument
  *
- * @param {String} text - text of the current line
+ * @param {String[]} lineArgs - array of command arguments
  * @param {Object} command - command object
  * @param {Object[]} command.cycleMarkers - cycle markers of the command
  * @param {String} command.alias - optional alias of the command
  *
  * @return {Object} cycle object
  */
-function getCommandStop(text, command) {
-
-	if (command == null) return null;
-
-	//replace all non arg seperating spaces with an _
-
-	let block = [];
-
-	let aux = "";
-	for (let c of text) {
-		if (c == "{") {
-			block.push("}");
-			aux += c;
-		} else if (c == "[") {
-			block.push("]");
-			aux += c;
-		} else if (c == "\"" && block[block.length - 1] != "\"") {
-			block.push("\"");
-			aux += c;
-		} else if (c == block[block.length - 1]) {
-			block.pop();
-			aux += c;
-		} else if (c == " " && block.length > 0) aux += "_";
-		else aux += c;
+function getCommandStop(lineArgs, command) {
+	if (command) {
+		if (command["alias"]) {
+			return runCycle(lineArgs, commands["commands"][command["alias"]]["cycleMarkers"]);
+		} else {
+			return runCycle(lineArgs, command["cycleMarkers"]);
+		}
 	}
-
-	let args = aux.split(" ").slice(1, -1);
-	if (command["alias"] != null) return runCycle(args, commands["commands"][command["alias"]]["cycleMarkers"]);
-	let cycle = command["cycleMarkers"];
-	return runCycle(args, cycle);
 }
 
 /**
@@ -977,54 +957,51 @@ function getSuggestions(args) {
 	if (!lineText.includes(" ")) {
 		out = getCommandOption(lineText);
 	} else if (current != null) {
+		let quote;
+		let brackets = [];
+		let lineArgs = [];
+		let lineArg = "";
 
-		let splitText = lineText.split("");
-		let currentText = "";
-		// The line splitted in arguments
-		let splitedText = [];
-
-		let inQuote = false;
-		let backslash = false;
-
-		for (let char of splitText) {
-			if (!backslash && char == '\\') {
-				backslash = true;
-				currentText += char;
-			} else if (backslash && char == '\"') {
-				backslash = false;
-				currentText += char;
-			} else if (!inQuote && char == '\"') {
-				inQuote = true;
-				currentText += char;
-			} else if (inQuote && char == '\"') {
-				inQuote = false;
-				currentText += char;
-			} else if (!inQuote && char == ' ') {
-				splitedText.push(currentText);
-				currentText = "";
-				backslash = false;
+		lineText.split("").reduce( (backslash,char,i) => { // reduce is used here to keep track of the backslash
+			if (quote) {
+				if (char === "\\") {
+					lineArg += char;
+					return !backslash;
+				} else if (!backslash && quote == char) {
+					quote = false;
+				}
 			} else {
-				currentText += char;
-				backslash = false;
+				if (char === '"' || char === "'") {
+					quote = char;
+				} else if (char === "{") {
+					brackets.push("}");
+				} else if (char === "[") {
+					brackets.push("]");
+				} else if (char === brackets[brackets.length-1]) { // current bracket is closed
+					brackets.pop();
+				} else if (char === " " && !brackets.length) {
+					if (lineText[i+1] !== " ") { // this ensures autocomplete even with multiple spaces seperating command arguments
+						lineArgs.push(lineArg);
+						lineArg = "";
+					}
+					return;
+				}
 			}
-		}
-		splitedText.push(currentText);
-
-		let lastText = splitedText[splitedText.length - 1];
+			lineArg += char;
+		},undefined)
 
 		if (commands["commands"][current] == null) return null;
-		let stop = getCommandStop(lineText, commands["commands"][current]);
+		let stop = getCommandStop(lineArgs.slice(1), commands["commands"][current]);
 		let cycle = stop["cycle"];
 		if (cycle == null) return [];
 
 		if (cycle["type"] == "command") {
-			out = getCommandOption(lastText);
+			out = getCommandOption(lineArg);
 		} else if (cycle["stop"] != null && !stop["noStop"]) {
-			out = suggestionList(cycle["type"], cycle, lastText, false);
+			out = suggestionList(cycle["type"], cycle, lineArg, false);
 		} else {
-			out = suggestionList(cycle["type"], cycle["value"], lastText, false);
+			out = suggestionList(cycle["type"], cycle["value"], lineArg, false);
 		}
-		curText = lastText;
 	}
 	return out;
 }
