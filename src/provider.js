@@ -109,6 +109,10 @@ function setLists(version) {
 	lootItems.push("offhand");
 }
 
+function getCommands(version) {
+
+}
+
 /**
  * Get the first list of a type on which the versions changes are applied
  *
@@ -218,10 +222,10 @@ function changeList(list, cList) {
 					list.push(elem["value"]);
 					break;
 				case "remove":
-					list.splice(list.indexOf(elem["value"]), 1);
+					list.splice(list.indexOf(list.find(e => e.name == elem.name)), 1);
 					break;
 				case "change":
-					list[list.indexOf(elem["value"])] = elem["new"];
+					list[list.indexOf(list.find(e => e.name == elem.name))] = elem["new"];
 					break;
 			}
 		} else {
@@ -237,6 +241,27 @@ function changeList(list, cList) {
 					list[list.indexOf(parameters[1])] = parameters[2];
 					break;
 			}
+		}
+	}
+}
+
+/**
+ * Changes an object with the given changes
+ *
+ * @param {(String|Object)[]} list - object to change
+ * @param {(String|Object)[]} cList - list with changes
+ */
+function changeObject(object,cList) {
+	for (const change of cList) {
+		switch (change.type) {
+			case "add":
+				object[change.name] = change.value;
+				break;
+			case "remove":
+				delete object[change.name];
+				break;
+			default:
+				break;
 		}
 	}
 }
