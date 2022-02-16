@@ -948,6 +948,7 @@ function getCommandOption(text) {
 	let out = [];
 	const maxOpLevel = atom.config.get("mcfunction-novum.autocomplete.opLevel");
 	for (let cmd of Object.values(commands["commands"])) {
+		if (cmd["hide"]) continue;
 		if (cmd["name"].startsWith(text)) {
 			const opLevel = cmd["alias"] ? commands["commands"][cmd["alias"]]["op-level"] : cmd["op-level"];
 			if ((opLevel === undefined ? 2 : opLevel) <= maxOpLevel) {
@@ -1017,6 +1018,7 @@ function getSuggestions(args) {
 		},undefined)
 
 		if (commands["commands"][current] == null) return null;
+		if (commands["commands"][current]["hide"]) return null;
 		let stop = getCommandStop(lineArgs.slice(1), commands["commands"][current]);
 		let cycle = stop["cycle"];
 		if (cycle == null) return [];
