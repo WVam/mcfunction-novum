@@ -786,10 +786,7 @@ function getCommandStop(lineArgs, command) {
 		if (command["alias"]) {
 			return runCycle(lineArgs, commands[command["alias"]]["cycleMarkers"]);
 		} else {
-			console.log()
-			let test = runCycle(lineArgs, command["cycleMarkers"]);
-			console.log("return",test);
-			return test;
+			return runCycle(lineArgs, command["cycleMarkers"]);
 		}
 	}
 }
@@ -812,11 +809,8 @@ function runCycle(args, cycle) {
 	let i = 0;
 	let c = 0;
 
-	console.log(args,cycle)
-
 	//cycles through the arguments
 	for (; i < args.length;) {
-		console.log(c)
 		let arg = args[i];
 		let stop = cycle[c];
 
@@ -826,7 +820,6 @@ function runCycle(args, cycle) {
 		}
 		// check include case
 		if (stop["include"] != null) {
-			console.log("hi")
 			let cycleRun = runCycle(args.slice(i), commands[stop["include"]]["cycleMarkers"])
 			i += cycleRun["argPos"] - 1;
 			if (cycleRun["cycle"] != null && (stop["preserveTypeEnd"] || cycleRun["cycle"]["type"] != "end" )) return {
@@ -835,7 +828,6 @@ function runCycle(args, cycle) {
 				noStop: cycleRun["noStop"],
 				cycle: cycleRun["cycle"]
 			}
-			console.log("out")
 		}
 
 		if (realStop["type"] == "option" && (realStop["anyValue"] == null || !realStop["anyValue"])) {
@@ -928,14 +920,11 @@ function runCycle(args, cycle) {
 		realLastStop = realStop;
 	}
 
-	console.log("out loop")
-
 	if (cycle[0] != null) {
 		let stop = cycle[c];
 
 		let realStop = stop;
 		if (stop["include"] != null) {
-			console.log("hi");
 			realStop = commands[stop["include"]]["cycleMarkers"][0];
 		}
 		return {
