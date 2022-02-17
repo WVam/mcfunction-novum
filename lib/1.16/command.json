@@ -164,7 +164,7 @@
 		]
 	},
 	"ban": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "ban",
 		"cycleMarkers": [
 			{
@@ -178,7 +178,7 @@
 		]
 	},
 	"ban-ip": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "ban-ip",
 		"cycleMarkers": [
 			{
@@ -192,7 +192,7 @@
 		]
 	},
 	"banlist": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "banlist",
 		"cycleMarkers": [
 			{
@@ -688,7 +688,7 @@
 		]
 	},
 	"debug": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "debug",
 		"cycleMarkers": [
 			{
@@ -716,7 +716,7 @@
 		]
 	},
 	"deop": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "deop",
 		"cycleMarkers": [
 			{
@@ -1285,7 +1285,7 @@
 		]
 	},
 	"help": {
-		"op-level": 0,
+		"opLevel": 0,
 		"name": "help",
 		"cycleMarkers": [
 			{
@@ -1470,7 +1470,7 @@
 		]
 	},
 	"kick": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "kick",
 		"cycleMarkers": [
 			{
@@ -1493,7 +1493,7 @@
 		]
 	},
 	"list": {
-		"op-level": 0,
+		"opLevel": 0,
 		"name": "list",
 		"cycleMarkers": [
 			{
@@ -1627,7 +1627,7 @@
 		]
 	},
 	"me": {
-		"op-level": 0,
+		"opLevel": 0,
 		"name": "me",
 		"cycleMarkers": [
 			{
@@ -1641,7 +1641,7 @@
 		"alias": "tell"
 	},
 	"op": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "op",
 		"cycleMarkers": [
 			{
@@ -1651,7 +1651,7 @@
 		]
 	},
 	"pardon": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "pardon",
 		"cycleMarkers": [
 			{
@@ -1661,7 +1661,7 @@
 		]
 	},
 	"pardon-ip": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "pardon-ip",
 		"cycleMarkers": [
 			{
@@ -1781,7 +1781,7 @@
 		]
 	},
 	"publish": {
-		"op-level": 4,
+		"opLevel": 4,
 		"name": "publish",
 		"cycleMarkers": [
 			{
@@ -1853,17 +1853,17 @@
 		]
 	},
 	"save-all": {
-		"op-level": 4,
+		"opLevel": 4,
 		"name": "save-all",
 		"cycleMarkers": []
 	},
 	"save-off": {
-		"op-level": 4,
+		"opLevel": 4,
 		"name": "save-off",
 		"cycleMarkers": []
 	},
 	"save-on": {
-		"op-level": 4,
+		"opLevel": 4,
 		"name": "save-on",
 		"cycleMarkers": []
 	},
@@ -2167,7 +2167,7 @@
 		]
 	},
 	"seed": {
-		"op-level": 0,
+		"opLevel": 0,
 		"name": "seed",
 		"cycleMarkers": []
 	},
@@ -2193,7 +2193,7 @@
 		]
 	},
 	"setidletimeout": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "setidletimeout",
 		"cycleMarkers": [
 			{
@@ -2294,7 +2294,7 @@
 		]
 	},
 	"stop": {
-		"op-level": 4,
+		"opLevel": 4,
 		"name": "stop",
 		"cycleMarkers": []
 	},
@@ -2565,7 +2565,7 @@
 		]
 	},
 	"teammsg": {
-		"op-level": 0,
+		"opLevel": 0,
 		"name": "teammsg",
 		"cycleMarkers": [
 			{
@@ -2604,7 +2604,7 @@
 		]
 	},
 	"tell": {
-		"op-level": 0,
+		"opLevel": 0,
 		"name": "tell",
 		"cycleMarkers": [
 			{
@@ -2738,7 +2738,7 @@
 		"alias": "teleport"
 	},
 	"trigger": {
-		"op-level": 0,
+		"opLevel": 0,
 		"name": "trigger",
 		"cycleMarkers": [
 			{
@@ -2780,7 +2780,7 @@
 		]
 	},
 	"whitelist": {
-		"op-level": 3,
+		"opLevel": 3,
 		"name": "whitelist",
 		"cycleMarkers": [
 			{

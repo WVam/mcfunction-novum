@@ -68,8 +68,8 @@ function setLists(version) {
 	selectors = setObjectList("selector.json", version);
 	scoreboards = setObjectList("scoreboard.json", version);
 
-	scoreboardSlots = scoreboards["slots"];
-	scoreboardObjectives = scoreboards["objectives"];
+	scoreboardSlots = scoreboards.slots;
+	scoreboardObjectives = scoreboards.objectives;
 
 	for (let v of blocks) {
 		if (!noItem.includes(v)) {
@@ -101,7 +101,7 @@ function setLists(version) {
 		scoreboardObjectives.push("teamkill." + v);
 		scoreboardObjectives.push("killedByTeam." + v);
 	}
-	for (let v of scoreboards["custom"]) {
+	for (let v of scoreboards.custom) {
 		scoreboardObjectives.push("minecraft.custom:" + v);
 	}
 
@@ -229,15 +229,15 @@ function iterateChangeLists(version, jsonName, original, key = null) {
 function changeList(list, cList) {
 	for (const elem of cList) {
 		if(typeof elem == "object") {
-			switch (elem["type"]) {
+			switch (elem.type) {
 				case "add":
-					list.push(elem["value"]);
+					list.push(elem.value);
 					break;
 				case "remove":
 					list.splice(list.indexOf(list.find(e => e.name == elem.name)), 1);
 					break;
 				case "change":
-					list[list.indexOf(list.find(e => e.name == elem.name))] = elem["new"];
+					list[list.indexOf(list.find(e => e.name == elem.name))] = elem.new;
 					break;
 			}
 		} else {
@@ -469,7 +469,7 @@ function suggestions(array, text, type, icon, out, negatable) {
 
 			if (v.startsWith("#minecraft:" + cutText)) {
 				sug = suggestion(cutText, v, type, icon);
-				sug["displayText"] = "#" + sug["displayText"];
+				sug.displayText = "#" + sug.displayText;
 				out.push(sug);
 			}
 		}
@@ -487,7 +487,7 @@ function suggestions(array, text, type, icon, out, negatable) {
 				//typed text matches with element of list without "minecraft:"
 				if (v.startsWith("!minecraft:" + cutText) || v.startsWith("!#minecraft:" + cutText)) {
 					sug = suggestion(cutText, v, type, icon);
-					sug["displayText"] = "!" + sug["displayText"];
+					sug.displayText = "!" + sug.displayText;
 					out.push(sug);
 				}
 
@@ -495,7 +495,7 @@ function suggestions(array, text, type, icon, out, negatable) {
 
 				if (v.startsWith("!#minecraft:" + cutText)) {
 					sug = suggestion(cutText, v, type, icon);
-					sug["displayText"] = "!#" + sug["displayText"];
+					sug.displayText = "!#" + sug.displayText;
 					out.push(sug);
 				}
 			}
@@ -617,7 +617,7 @@ function suggestionList(type, value, lastText, negatable) {
 			//selector without parameters
 			
 			if (!/^@[a-z]\[/.test(lastText)) {
-				suggestions(selectors["selector"], lastText, "entity-selector", icon("selector.svg"), out, negatable);
+				suggestions(selectors.selector, lastText, "entity-selector", icon("selector.svg"), out, negatable);
 
 				//selector with parameters
 			} else {
@@ -658,11 +658,11 @@ function suggestionList(type, value, lastText, negatable) {
 					const {groups:{key,value}} = lastParameter.match(/^ *(?<key>[^=]*?) *(?:= *(?<value>.*?) *)?$/);
 					
 					if (value === undefined) { //current parameter is an argument
-						suggestions(selectors["test"].map( v => v["name"] ), key, "selector-test", icon("option.svg"), out, negatable);
+						suggestions(selectors.test.map( v => v.name ), key, "selector-test", icon("option.svg"), out, negatable);
 					} else { //current parameter is a value
-						for (let v of selectors["test"]) {
-							if (v["name"] == key) {
-								out = suggestionList(v["type"], v["value"], value, v["negatable"]);
+						for (let v of selectors.test) {
+							if (v.name == key) {
+								out = suggestionList(v.type, v.value, value, v.negatable);
 							}
 						}
 					}
@@ -680,11 +680,11 @@ function suggestionList(type, value, lastText, negatable) {
 			} else {
 				out.push({
 					text: "~ ~ ~",
-					displayText: value["value"],
+					displayText: value.value,
 					type: "coord",
 					iconHTML: icon("coords.svg")
 				});
-				suggestions(value["stop"], lastText, "coord", icon("option.svg"), out, negatable);
+				suggestions(value.stop, lastText, "coord", icon("option.svg"), out, negatable);
 			}
 			sort = false;
 			break;
@@ -699,11 +699,11 @@ function suggestionList(type, value, lastText, negatable) {
 			} else {
 				out.push({
 					text: "~ ~",
-					displayText: value["value"],
+					displayText: value.value,
 					type: "coord",
 					iconHTML: icon("coords.svg")
 				});
-				suggestions(value["stop"], lastText, "coord", icon("option.svg"), out, negatable);
+				suggestions(value.stop, lastText, "coord", icon("option.svg"), out, negatable);
 			}
 			sort = false;
 			break;
@@ -718,9 +718,9 @@ function suggestionList(type, value, lastText, negatable) {
 			} else {
 				out.push({
 					text: "0 0 0",
-					displayText: value["value"],
+					displayText: value.value,
 					type: "3-number",
-					iconHTML: icon(value["icon"])
+					iconHTML: icon(value.icon)
 				});
 			}
 			sort = false;
@@ -795,10 +795,10 @@ function getCurrentCommand(editor, bufferPosition) {
  */
 function getCommandStop(lineArgs, command) {
 	if (command) {
-		if (command["alias"]) {
-			return runCycle(lineArgs, commands[command["alias"]]["cycleMarkers"]);
+		if (command.alias) {
+			return runCycle(lineArgs, commands[command.alias].cycleMarkers);
 		} else {
-			return runCycle(lineArgs, command["cycleMarkers"]);
+			return runCycle(lineArgs, command.cycleMarkers);
 		}
 	}
 }
@@ -827,23 +827,23 @@ function runCycle(args, cycle) {
 		let stop = cycle[c];
 
 		let realStop = stop;
-		if (realStop["noStop"]) {
-			realStop["noStop"] = null;
+		if (realStop.noStop) {
+			realStop.noStop = null;
 		}
 		// check include case
-		if (stop["include"] != null) {
-			let cycleRun = runCycle(args.slice(i), commands[stop["include"]]["cycleMarkers"])
-			i += cycleRun["argPos"] - 1;
-			if (cycleRun["cycle"] != null && (stop["preserveTypeEnd"] || cycleRun["cycle"]["type"] != "end" )) return {
+		if (stop.include != null) {
+			let cycleRun = runCycle(args.slice(i), commands[stop.include].cycleMarkers)
+			i += cycleRun.argPos - 1;
+			if (cycleRun.cycle != null && (stop.preserveTypeEnd || cycleRun.cycle.type != "end" )) return {
 				pos: c,
 				argPos: i,
-				noStop: cycleRun["noStop"],
-				cycle: cycleRun["cycle"]
+				noStop: cycleRun.noStop,
+				cycle: cycleRun.cycle
 			}
 		}
 
-		if (realStop["type"] == "option" && (realStop["anyValue"] == null || !realStop["anyValue"])) {
-			if (!realStop["value"].includes(arg)) {
+		if (realStop.type == "option" && (realStop.anyValue == null || !realStop.anyValue)) {
+			if (!realStop.value.includes(arg)) {
 				return {
 					pos: cycle.length + 1,
 					argPos: args.length + 1,
@@ -853,17 +853,17 @@ function runCycle(args, cycle) {
 				}
 			}
 		}
-		if ((realStop["type"] == "option" || realStop["type"] == "particle" || realStop["type"] == "gamerule" || realStop["type"] == "2-coord" || realStop["type"] == "coord") && realStop["change"] != null && realStop["change"][arg] != null) {
-			let cycleRun = runCycle(args.slice(i + 1), realStop["change"][arg]);
-			i += cycleRun["argPos"] + 1;
+		if ((realStop.type == "option" || realStop.type == "particle" || realStop.type == "gamerule" || realStop.type == "2-coord" || realStop.type == "coord") && realStop.change != null && realStop.change[arg] != null) {
+			let cycleRun = runCycle(args.slice(i + 1), realStop.change[arg]);
+			i += cycleRun.argPos + 1;
 			c += 1;
-			if (cycleRun["cycle"] != null) return {
+			if (cycleRun.cycle != null) return {
 				pos: c,
 				argPos: i,
-				noStop: cycleRun["noStop"],
-				cycle: cycleRun["cycle"]
+				noStop: cycleRun.noStop,
+				cycle: cycleRun.cycle
 			}
-		} else if ((realStop["type"] == "coord" || realStop["type"] == "3-number") && i < args.length && (realStop["stop"] == null || !realStop["stop"].includes(arg))) {
+		} else if ((realStop.type == "coord" || realStop.type == "3-number") && i < args.length && (realStop.stop == null || !realStop.stop.includes(arg))) {
 			//skips two arguments
 			i += 3;
 			c += 1;
@@ -877,7 +877,7 @@ function runCycle(args, cycle) {
 					cycle: realStop
 				};
 			}
-		} else if (realStop["type"] == "2-coord" && i < args.length && (realStop["stop"] == null || !realStop["stop"].includes(arg))) {
+		} else if (realStop.type == "2-coord" && i < args.length && (realStop.stop == null || !realStop.stop.includes(arg))) {
 			//skips one argument
 			i += 2;
 			c += 1;
@@ -891,13 +891,13 @@ function runCycle(args, cycle) {
 					cycle: realStop
 				};
 			}
-		} else if (realStop["type"] == "end") {
+		} else if (realStop.type == "end") {
 			return {
 				pos: c,
 				argPos: i,
 				cycle: cycle[c]
 			}
-		} else if (realStop["type"] == "command") {
+		} else if (realStop.type == "command") {
 			let cmd = args[i];
 			let newCycle = getCommandStop(args.slice(i + 1), commands[cmd])
 			if(newCycle == null) {
@@ -910,10 +910,10 @@ function runCycle(args, cycle) {
 			return {
 				pos: cycle.length + 1,
 				argPos: args.length + 1,
-				noStop: newCycle["noStop"],
-				cycle: newCycle["cycle"]
+				noStop: newCycle.noStop,
+				cycle: newCycle.cycle
 			}
-		} else if (realStop["type"] == "greedy") {
+		} else if (realStop.type == "greedy") {
 			return {
 				pos: cycle.length + 1,
 				argPos: args.length + 1,
@@ -936,8 +936,8 @@ function runCycle(args, cycle) {
 		let stop = cycle[c];
 
 		let realStop = stop;
-		if (stop["include"] != null) {
-			realStop = commands[stop["include"]]["cycleMarkers"][0];
+		if (stop.include != null) {
+			realStop = commands[stop.include].cycleMarkers[0];
 		}
 		return {
 			pos: c,
@@ -964,12 +964,12 @@ function getCommandOption(text) {
 	let out = [];
 	const maxOpLevel = atom.config.get("mcfunction-novum.autocomplete.opLevel");
 	for (let cmd of Object.values(commands)) {
-		if (cmd["hide"]) continue;
-		if (cmd["name"].startsWith(text)) {
-			const opLevel = cmd["alias"] ? commands[cmd["alias"]]["op-level"] : cmd["op-level"];
+		if (cmd.hide) continue;
+		if (cmd.name.startsWith(text)) {
+			const opLevel = cmd.alias ? commands[cmd.alias].opLevel : cmd.opLevel;
 			if ((opLevel === undefined ? 2 : opLevel) <= maxOpLevel) {
 				let cmdObj = {
-					text: cmd["name"],
+					text: cmd.name,
 					type: "command",
 					iconHTML: icon("command.svg"),
 					command: cmd
@@ -1034,17 +1034,17 @@ function getSuggestions(args) {
 		},undefined)
 
 		if (commands[current] == null) return null;
-		if (commands[current]["hide"]) return null;
+		if (commands[current].hide) return null;
 		let stop = getCommandStop(lineArgs.slice(1), commands[current]);
-		let cycle = stop["cycle"];
+		let cycle = stop.cycle;
 		if (cycle == null) return [];
 
-		if (cycle["type"] == "command") {
+		if (cycle.type == "command") {
 			out = getCommandOption(lineArg);
-		} else if (cycle["stop"] != null && !stop["noStop"]) {
-			out = suggestionList(cycle["type"], cycle, lineArg, false);
+		} else if (cycle.stop != null && !stop.noStop) {
+			out = suggestionList(cycle.type, cycle, lineArg, false);
 		} else {
-			out = suggestionList(cycle["type"], cycle["value"], lineArg, false);
+			out = suggestionList(cycle.type, cycle.value, lineArg, false);
 		}
 	}
 	return out;
