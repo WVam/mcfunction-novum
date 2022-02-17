@@ -110,7 +110,6 @@ function setLists(version) {
 }
 
 /**
- * 
  * Get the command object for the given minecraft version
  * 
  * @param  {String} version - name of the minecraft version
