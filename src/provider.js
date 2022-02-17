@@ -109,6 +109,13 @@ function setLists(version) {
 	lootItems.push("offhand");
 }
 
+/**
+ * 
+ * Get the command object for the given minecraft version
+ * 
+ * @param  {String} version - name of the minecraft version
+ * @return {Object} command object
+ */
 function getCommands(version) {
 	let startingFolder = getListStartingFolder("command.json");
 
