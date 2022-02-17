@@ -1,0 +1,242 @@
+[
+    {
+        "type": "remove",
+        "name": "replaceitem"
+    },
+    {
+        "type": "add",
+        "name": "item",
+        "value": {
+            "name": "item",
+            "cycleMarkers": [
+                {
+                    "type": "option",
+                    "value": [
+                        "modify",
+                        "replace"
+                    ],
+                    "change": {
+                        "modify": [
+                            {
+                                "type": "option",
+                                "value": [
+                                    "entity",
+                                    "block"
+                                ],
+                                "change": {
+                                    "entity": [
+                                        {
+                                            "type": "entity",
+                                            "value": "targets"
+                                        }
+                                    ],
+                                    "block": [
+                                        {
+                                            "type": "coord",
+                                            "value": "x y z"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "slot",
+                                "value": "slot"
+                            },
+                            {
+                                "type": "item-modifier",
+                                "value": "item_modifier"
+                            }
+                        ],
+                        "replace": [
+                            {
+                                "type": "option",
+                                "value": [
+                                    "entity",
+                                    "block"
+                                ],
+                                "change": {
+                                    "entity": [
+                                        {
+                                            "type": "entity",
+                                            "value": "targets"
+                                        }
+                                    ],
+                                    "block": [
+                                        {
+                                            "type": "coord",
+                                            "value": "x y z"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "slot",
+                                "value": "slot"
+                            },
+                            {
+                                "type": "option",
+                                "value": [
+                                    "with",
+                                    "from"
+                                ],
+                                "change": {
+                                    "width": [
+                                        {
+                                            "type": "item",
+                                            "value": "item"
+                                        },
+                                        {
+                                            "type": "string",
+                                            "value": "count"
+                                        }
+                                    ],
+                                    "from": [
+                                        {
+                                            "type": "option",
+                                            "value": [
+                                                "entity",
+                                                "block"
+                                            ],
+                                            "change": {
+                                                "entity": [
+                                                    {
+                                                        "type": "entity",
+                                                        "value": "targets"
+                                                    }
+                                                ],
+                                                "block": [
+                                                    {
+                                                        "type": "coord",
+                                                        "value": "x y z"
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "slot",
+                                            "value": "sourceSlot"
+                                        },
+                                        {
+                                            "type": "item-modifier",
+                                            "value": "item_modifier"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "type": "add",
+        "name": "debug",
+        "value": {
+            "op-level": 3,
+            "name": "debug",
+            "cycleMarkers": [
+                {
+                    "type": "option",
+                    "value": [
+                        "start",
+                        "stop",
+                        "function"
+                    ],
+                    "change": {
+                        "function": [
+                            {
+                                "type": "function",
+                                "value": "function"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "type": "add",
+        "name": "gamerule",
+        "value": {
+            "name": "gamerule",
+            "cycleMarkers": [
+                {
+                    "type": "gamerule",
+                    "value": "gamerule",
+                    "change": {
+                        "maxCommandChainLength": [
+                            {
+                                "type": "string",
+                                "value": "length"
+                            },
+                            {
+                                "type": "end"
+                            }
+                        ],
+                        "maxEntityCramming": [
+                            {
+                                "type": "string",
+                                "value": "number"
+                            },
+                            {
+                                "type": "end"
+                            }
+                        ],
+                        "randomTickSpeed": [
+                            {
+                                "type": "string",
+                                "value": "ticks"
+                            },
+                            {
+                                "type": "end"
+                            }
+                        ],
+                        "spawnRadius": [
+                            {
+                                "type": "string",
+                                "value": "radius"
+                            },
+                            {
+                                "type": "end"
+                            }
+                        ],
+                        "playersSleepingPercentage": [
+                            {
+                                "type": "string",
+                                "value": "percentage"
+                            },
+                            {
+                                "type": "end"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "option",
+                    "value": [
+                        "true",
+                        "false"
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "type": "add",
+        "name": "perf",
+        "value": {
+            "op-level": 4,
+            "name": "perf",
+            "cycleMarkers": [
+                {
+                    "type": "option",
+                    "value": [
+                        "start",
+                        "stop"
+                    ]
+                }
+            ]
+        }
+    }
+]

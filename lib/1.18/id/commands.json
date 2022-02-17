@@ -1,0 +1,95 @@
+[
+    {
+        "type": "add",
+        "name": "jfr",
+        "value": {
+            "op-level": 4,
+            "name": "jfr",
+            "cycleMarkers": [
+                {
+                    "type": "option",
+                    "value": [
+                        "start",
+                        "stop"
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "type": "add",
+        "name": "particle",
+        "value": {
+            "name": "particle",
+            "cycleMarkers": [
+                {
+                    "type": "particle",
+                    "value": "particle",
+                    "change": {
+                        "minecraft:falling_dust": [
+                            {
+                                "type": "block",
+                                "value": "block"
+                            }
+                        ],
+                        "minecraft:block": [
+                            {
+                                "type": "block",
+                                "value": "block"
+                            }
+                        ],
+                        "minecraft:block_marker": [
+                            {
+                                "type": "block",
+                                "value": "block"
+                            }
+                        ],
+                        "minecraft:item": [
+                            {
+                                "type": "item",
+                                "value": "item"
+                            }
+                        ],
+                        "minecraft:dust": [
+                            {
+                                "type": "coord",
+                                "value": "R G B"
+                            },
+                            {
+                                "type": "string",
+                                "value": "Alpha"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "coord",
+                    "value": "x y z"
+                },
+                {
+                    "type": "coord",
+                    "value": "dx dy dz"
+                },
+                {
+                    "type": "string",
+                    "value": "speed"
+                },
+                {
+                    "type": "string",
+                    "value": "count"
+                },
+                {
+                    "type": "option",
+                    "value": [
+                        "normal",
+                        "force"
+                    ]
+                },
+                {
+                    "type": "entity",
+                    "value": "viewers"
+                }
+            ]
+        }
+    }
+]

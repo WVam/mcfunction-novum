@@ -39,7 +39,7 @@ features = [];
  * @param {String} version - minecraft version
  */
 function setLists(version) {
-	commands = require("../lib/" + version + "/commands.json");
+	commands = getCommands(version);
 
 	biomes = setArrayList("biome.json", version);
 	blocks = setArrayList("block.json", version);
@@ -110,7 +110,10 @@ function setLists(version) {
 }
 
 function getCommands(version) {
+	let startingFolder = getListStartingFolder("commands.json");
 
+	let coms = JSON.parse(JSON.stringify(require(`../lib/${startingFolder}/commands.json`)));
+	return iterateChangeLists(version, "commands.json", coms);
 }
 
 /**
@@ -142,7 +145,7 @@ function setArrayList(jsonName, version) {
 
 	let list = require("../lib/" + startingFolder + "/id/" + jsonName).slice();
 
-	return iterateLists(version, jsonName, list);
+	return iterateChangeLists(version, jsonName, list);
 }
 
 /**
@@ -167,7 +170,7 @@ function setObjectList(jsonName, version) {
 			let element = object[key];
 
 			if (Array.isArray(element)) {
-				iterateLists(version, jsonName, element, key);
+				iterateChangeLists(version, jsonName, element, key);
 			}
 		}
 	}
@@ -179,11 +182,11 @@ function setObjectList(jsonName, version) {
  *
  * @param {String} jsonName - name of the JSON file
  * @param {String} version - name of the minecraft version
- * @param {(String|Object)[]} list - original list to change
+ * @param {(String|Object)[]|Object} original - original list to change
  *
  * @return {(String|Object)[]} - list with all changes applied
  */
-function iterateLists(version, jsonName, list, key = null) {
+function iterateChangeLists(version, jsonName, original, key = null) {
 	let versionIndex = versions.indexOf(version);
 	let i = 1;
 
@@ -201,11 +204,15 @@ function iterateLists(version, jsonName, list, key = null) {
 			i++;
 			continue;
 		}
-
-		changeList(list, cList);
+		if (Array.isArray(original) || key) {
+			changeList(original, cList);
+		} else {
+			console.log(cList)
+			changeObject(original, cList);
+		}
 		i++;
 	}
-	return list;
+	return original;
 }
 
 /**
@@ -887,7 +894,7 @@ function runCycle(args, cycle) {
 			}
 		} else if (realStop["type"] == "command") {
 			let cmd = args[i];
-			let newCycle = getCommandStop(args.slice(i), commands[cmd])
+			let newCycle = getCommandStop(args.slice(i + 1), commands[cmd])
 			if(newCycle == null) {
 				return {
 					pos: cycle.length + 1,

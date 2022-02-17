@@ -1,0 +1,19 @@
+[
+    {
+        "type": "add",
+        "name": "placefeature",
+        "value": {
+            "name": "placefeature",
+            "cycleMarkers": [
+                {
+                    "type": "feature",
+                    "value": "feature"
+                },
+                {
+                    "type": "coord",
+                    "value": "x y z"
+                }
+            ]
+        }
+    }
+]
