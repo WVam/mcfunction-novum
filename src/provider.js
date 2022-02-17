@@ -110,10 +110,10 @@ function setLists(version) {
 }
 
 function getCommands(version) {
-	let startingFolder = getListStartingFolder("commands.json");
+	let startingFolder = getListStartingFolder("command.json");
 
-	let coms = JSON.parse(JSON.stringify(require(`../lib/${startingFolder}/commands.json`)));
-	return iterateChangeLists(version, "commands.json", coms);
+	let coms = JSON.parse(JSON.stringify(require(`../lib/${startingFolder}/command.json`)));
+	return iterateChangeLists(version, "command.json", coms);
 }
 
 /**
@@ -143,7 +143,7 @@ function setArrayList(jsonName, version) {
 		return [];
 	}
 
-	let list = require("../lib/" + startingFolder + "/id/" + jsonName).slice();
+	let list = require(`../lib/${startingFolder}/${jsonName}`).slice();
 
 	return iterateChangeLists(version, jsonName, list);
 }
@@ -163,7 +163,7 @@ function setObjectList(jsonName, version) {
 		return {};
 	}
 
-	let object = JSON.parse(JSON.stringify(require("../lib/" + startingFolder + "/id/" + jsonName)));
+	let object = JSON.parse(JSON.stringify(require(`../lib/${startingFolder}/${jsonName}`)));
 
 	for (const key in object) {
 		if (object.hasOwnProperty(key)) {
@@ -195,7 +195,7 @@ function iterateChangeLists(version, jsonName, original, key = null) {
 		let cList;
 
 		try {
-			cList = require("../lib/" + versions[i] + "/id/" + jsonName);
+			cList = require(`../lib/${versions[i]}/${jsonName}`);
 			if (key) {
 				cList = cList[key];
 			}
@@ -207,7 +207,6 @@ function iterateChangeLists(version, jsonName, original, key = null) {
 		if (Array.isArray(original) || key) {
 			changeList(original, cList);
 		} else {
-			console.log(cList)
 			changeObject(original, cList);
 		}
 		i++;
