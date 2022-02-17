@@ -642,11 +642,8 @@ function suggestionList(type, value, lastText, negatable) {
 					lastParameter += char;
 				},undefined)
 				
-				console.log(parametersArray.concat([lastParameter]).map(v=>v.trim()))
-				
 				if (!quote && !brackets.length) {
 					const {groups:{key,value}} = lastParameter.match(/^ *(?<key>[^=]*?) *(?:= *(?<value>.*?) *)?$/);
-					console.log({key:key,value:value})
 					
 					if (value === undefined) { //current parameter is an argument
 						suggestions(selectors["test"].map( v => v["name"] ), key, "selector-test", icon("option.svg"), out, negatable);
@@ -787,9 +784,12 @@ function getCurrentCommand(editor, bufferPosition) {
 function getCommandStop(lineArgs, command) {
 	if (command) {
 		if (command["alias"]) {
-			return runCycle(lineArgs, commands["commands"][command["alias"]]["cycleMarkers"]);
+			return runCycle(lineArgs, commands[command["alias"]]["cycleMarkers"]);
 		} else {
-			return runCycle(lineArgs, command["cycleMarkers"]);
+			console.log()
+			let test = runCycle(lineArgs, command["cycleMarkers"]);
+			console.log("return",test);
+			return test;
 		}
 	}
 }
@@ -812,8 +812,11 @@ function runCycle(args, cycle) {
 	let i = 0;
 	let c = 0;
 
+	console.log(args,cycle)
+
 	//cycles through the arguments
 	for (; i < args.length;) {
+		console.log(c)
 		let arg = args[i];
 		let stop = cycle[c];
 
@@ -823,7 +826,16 @@ function runCycle(args, cycle) {
 		}
 		// check include case
 		if (stop["include"] != null) {
-			realStop = commands["reference"][stop["include"]];
+			console.log("hi")
+			let cycleRun = runCycle(args.slice(i), commands[stop["include"]]["cycleMarkers"])
+			i += cycleRun["argPos"] - 1;
+			if (cycleRun["cycle"] != null && (stop["preserveTypeEnd"] || cycleRun["cycle"]["type"] != "end" )) return {
+				pos: c,
+				argPos: i,
+				noStop: cycleRun["noStop"],
+				cycle: cycleRun["cycle"]
+			}
+			console.log("out")
 		}
 
 		if (realStop["type"] == "option" && (realStop["anyValue"] == null || !realStop["anyValue"])) {
@@ -883,7 +895,7 @@ function runCycle(args, cycle) {
 			}
 		} else if (realStop["type"] == "command") {
 			let cmd = args[i];
-			let newCycle = getCommandStop(args.slice(i).join(" ") + " !", commands["commands"][cmd])
+			let newCycle = getCommandStop(args.slice(i), commands[cmd])
 			if(newCycle == null) {
 				return {
 					pos: cycle.length + 1,
@@ -916,12 +928,15 @@ function runCycle(args, cycle) {
 		realLastStop = realStop;
 	}
 
+	console.log("out loop")
+
 	if (cycle[0] != null) {
 		let stop = cycle[c];
 
 		let realStop = stop;
 		if (stop["include"] != null) {
-			realStop = commands["reference"][stop["include"]];
+			console.log("hi");
+			realStop = commands[stop["include"]]["cycleMarkers"][0];
 		}
 		return {
 			pos: c,
@@ -947,10 +962,10 @@ function runCycle(args, cycle) {
 function getCommandOption(text) {
 	let out = [];
 	const maxOpLevel = atom.config.get("mcfunction-novum.autocomplete.opLevel");
-	for (let cmd of Object.values(commands["commands"])) {
+	for (let cmd of Object.values(commands)) {
 		if (cmd["hide"]) continue;
 		if (cmd["name"].startsWith(text)) {
-			const opLevel = cmd["alias"] ? commands["commands"][cmd["alias"]]["op-level"] : cmd["op-level"];
+			const opLevel = cmd["alias"] ? commands[cmd["alias"]]["op-level"] : cmd["op-level"];
 			if ((opLevel === undefined ? 2 : opLevel) <= maxOpLevel) {
 				let cmdObj = {
 					text: cmd["name"],
@@ -1017,9 +1032,9 @@ function getSuggestions(args) {
 			lineArg += char;
 		},undefined)
 
-		if (commands["commands"][current] == null) return null;
-		if (commands["commands"][current]["hide"]) return null;
-		let stop = getCommandStop(lineArgs.slice(1), commands["commands"][current]);
+		if (commands[current] == null) return null;
+		if (commands[current]["hide"]) return null;
+		let stop = getCommandStop(lineArgs.slice(1), commands[current]);
 		let cycle = stop["cycle"];
 		if (cycle == null) return [];
 
