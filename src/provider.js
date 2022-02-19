@@ -6,6 +6,7 @@ const path = require('path');
 
 let commands,
 biomes,
+biomeTags,
 blocks,
 effects,
 loottables,
@@ -16,6 +17,7 @@ sounds,
 recipes,
 slots,
 structures,
+structureTags,
 entities,
 particles,
 selectors,
@@ -42,6 +44,7 @@ function setLists(version) {
 	commands = getCommands(version);
 
 	biomes = setArrayList("biome.json", version);
+	biomeTags = setArrayList("biome_tag.json",version);
 	blocks = setArrayList("block.json", version);
 	effects = setArrayList("effect.json", version);
 	loottables = setArrayList("loottable.json", version);
@@ -53,6 +56,7 @@ function setLists(version) {
 	recipes = setArrayList("recipe.json", version);
 	slots = setArrayList("slot.json", version);
 	structures = setArrayList("structure.json", version);
+	structureTags = setArrayList("structure_tag.json", version);
 	entities = setArrayList("entity.json", version);
 	particles = setArrayList("particle.json", version);
 	colors = setArrayList("color.json", version);
@@ -101,12 +105,25 @@ function setLists(version) {
 		scoreboardObjectives.push("teamkill." + v);
 		scoreboardObjectives.push("killedByTeam." + v);
 	}
+	for (let s of structures) {
+		structureTags.push(s);
+		if(["minecraft:mansion","minecraft:fortress","minecraft:monument","minecraft:jungle_pyramid"].includes(s)) continue;
+		// test for version 1.18.2 or later
+		if(versions.indexOf(version) >= 3) {
+			biomeTags.push("#" + s.replace(":", ":has_structure/"));
+		}
+	}
+	for (let b of biomes) {
+		biomeTags.push(b);
+	}
 	for (let v of scoreboards.custom) {
 		scoreboardObjectives.push("minecraft.custom:" + v);
 	}
 
 	lootItems.push("mainhand");
 	lootItems.push("offhand");
+
+	
 }
 
 /**
@@ -538,10 +555,10 @@ function suggestionList(type, value, lastText, negatable) {
 			suggestions(advancement, lastText, "advancement", icon("option.svg"), out, negatable);
 			break;
 		case "biome":
-			suggestions(biomes, lastText, "biome", icon("biome.svg"), out, negatable);
+			suggestions(biomeTags, lastText, "biome", icon("biome.svg"), out, negatable);
 			break;
 		case "structure":
-			suggestions(structures, lastText, "structure", icon("structure.svg"), out, negatable);
+			suggestions(structureTags, lastText, "structure", icon("structure.svg"), out, negatable);
 			break;
 		case "loottable":
 			let loottable = loottables.concat(getCustomEntries("/loot_tables","json"));

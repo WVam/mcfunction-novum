@@ -1,6 +1,7 @@
 {
     "advancement": "1.16",
     "attribute": "1.16",
+    "biome_tag": "1.18.2",
     "biome": "1.16",
     "block_tag": "1.16",
     "block": "1.16",
@@ -23,5 +24,6 @@
     "selector": "1.16",
     "slot": "1.16",
     "sound": "1.16",
+    "structure_tag": "1.18.2",
     "structure": "1.16"
 }
