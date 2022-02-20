@@ -4,6 +4,8 @@ const versions = versionObjects.map(v => v.folder);
 const fs = require('fs');
 const path = require('path');
 
+let currentVersion;
+
 let commands,
 biomes,
 biomeTags,
@@ -41,6 +43,8 @@ features = [];
  * @param {String} version - minecraft version
  */
 function setLists(version) {
+	currentVersion = version;
+
 	commands = getCommands(version);
 
 	biomes = setArrayList("biome.json", version);
@@ -108,8 +112,8 @@ function setLists(version) {
 	for (let s of structures) {
 		structureTags.push(s);
 		if(["minecraft:mansion","minecraft:fortress","minecraft:monument","minecraft:jungle_pyramid"].includes(s)) continue;
-		// test for version 1.18.2 or later
-		if(versions.indexOf(version) >= 3) {
+		
+		if(versionsIsNewer(version,"1.18")) {
 			biomeTags.push("#" + s.replace(":", ":has_structure/"));
 		}
 	}
@@ -124,6 +128,10 @@ function setLists(version) {
 	lootItems.push("offhand");
 
 	
+}
+
+function versionsIsNewer(version1, version2) {
+	return versions.indexOf(version1) > versions.indexOf(version2);
 }
 
 /**
@@ -555,10 +563,12 @@ function suggestionList(type, value, lastText, negatable) {
 			suggestions(advancement, lastText, "advancement", icon("option.svg"), out, negatable);
 			break;
 		case "biome":
-			suggestions(biomeTags, lastText, "biome", icon("biome.svg"), out, negatable);
+			let biomeTag = (versionsIsNewer(currentVersion, "1.18")) ? biomeTags.concat(getCustomEntries("/tags/worldgen/biome", "json", "#")) : biomeTags;
+			suggestions(biomeTag, lastText, "biome", icon("biome.svg"), out, negatable);
 			break;
 		case "structure":
-			suggestions(structureTags, lastText, "structure", icon("structure.svg"), out, negatable);
+			let structureTag = (versionsIsNewer(currentVersion, "1.18")) ? structureTags.concat(getCustomEntries("/tags/worldgen/configured_structure_feature", "json", "#")) : structureTags;
+			suggestions(structureTag, lastText, "structure", icon("structure.svg"), out, negatable);
 			break;
 		case "loottable":
 			let loottable = loottables.concat(getCustomEntries("/loot_tables","json"));
