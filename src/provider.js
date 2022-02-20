@@ -113,7 +113,7 @@ function setLists(version) {
 		structureTags.push(s);
 		if(["minecraft:mansion","minecraft:fortress","minecraft:monument","minecraft:jungle_pyramid"].includes(s)) continue;
 		
-		if(versionsIsNewer(version,"1.18")) {
+		if(versionsIsNewerThan(version,"1.18")) {
 			biomeTags.push("#" + s.replace(":", ":has_structure/"));
 		}
 	}
@@ -129,8 +129,15 @@ function setLists(version) {
 
 	
 }
-
-function versionsIsNewer(version1, version2) {
+/**
+ *  Returns if a version is newer than an other version
+ * 
+ * @param  {} version1 - minecraft version
+ * @param  {} version2 - minecraft version
+ * 
+ * @return {boolean} true, if version1 is newer than version2, else false
+ */
+function versionsIsNewerThan(version1, version2) {
 	return versions.indexOf(version1) > versions.indexOf(version2);
 }
 
@@ -138,6 +145,7 @@ function versionsIsNewer(version1, version2) {
  * Get the command object for the given minecraft version
  * 
  * @param  {String} version - name of the minecraft version
+ * 
  * @return {Object} command object
  */
 function getCommands(version) {
@@ -563,11 +571,11 @@ function suggestionList(type, value, lastText, negatable) {
 			suggestions(advancement, lastText, "advancement", icon("option.svg"), out, negatable);
 			break;
 		case "biome":
-			let biomeTag = (versionsIsNewer(currentVersion, "1.18")) ? biomeTags.concat(getCustomEntries("/tags/worldgen/biome", "json", "#")) : biomeTags;
+			let biomeTag = (versionsIsNewerThan(currentVersion, "1.18")) ? biomeTags.concat(getCustomEntries("/tags/worldgen/biome", "json", "#")) : biomeTags;
 			suggestions(biomeTag, lastText, "biome", icon("biome.svg"), out, negatable);
 			break;
 		case "structure":
-			let structureTag = (versionsIsNewer(currentVersion, "1.18")) ? structureTags.concat(getCustomEntries("/tags/worldgen/configured_structure_feature", "json", "#")) : structureTags;
+			let structureTag = (versionsIsNewerThan(currentVersion, "1.18")) ? structureTags.concat(getCustomEntries("/tags/worldgen/configured_structure_feature", "json", "#")) : structureTags;
 			suggestions(structureTag, lastText, "structure", icon("structure.svg"), out, negatable);
 			break;
 		case "loottable":
