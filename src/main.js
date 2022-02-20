@@ -80,9 +80,10 @@ module.exports = {
 		}
 	},
 
-	activate: () => {
-		moveSettings();
-		
+	activate: (state) => {
+		this.packageStorage = new PackageStorage(state);
+		moveSettings(this);
+
 		try{
 			provider.setLists(versions[atom.config.get("mcfunction-novum.autocomplete.mcVersion")].folder);
 		} catch (error) {
@@ -117,11 +118,7 @@ module.exports = {
 			);
 		}
 
-		if(!atom.config.get("mcfunction-novum.latestVersion")) {
-			atom.config.set("mcfunction-novum.latestVersion",versions.length);
-		}
-
-		if(atom.config.get("mcfunction-novum.latestVersion") < versions.length) {
+		if(this.packageStorage.version < versions.length - 1) {
 			let notification = atom.notifications.addInfo("mcfunction-novum",
 			{
 				dismissable: true,
@@ -146,7 +143,7 @@ module.exports = {
 			});
 		}
 		
-		atom.config.set("mcfunction-novum.latestVersion",versions.length);
+		this.packageStorage = new PackageStorage();
 
 		setIconColor(atom.config.get("mcfunction-novum.autocomplete.iconColor"));
 		atom.config.onDidChange("mcfunction-novum.autocomplete.iconColor", () => {
@@ -158,6 +155,10 @@ module.exports = {
 			setCommentOutHighlighting(atom.config.get("mcfunction-novum.syntaxHighlighting.commentOut"));
 		});
 
+	},
+
+	serialize: () => {
+		return this.packageStorage.serialize();
 	},
 
 	getProvider: () => provider
@@ -175,17 +176,35 @@ function setCommentOutHighlighting(highlight) {
 	document.documentElement.style.setProperty("--mcfunction-novum-deactivated", highlight ? "inherit" : getComputedStyle(document.documentElement).getPropertyValue("--mcfunction-novum-comment") );
 }
 
-function moveSettings() {
+function moveSettings(that) {
 	let mcVersion = atom.config.get("mcfunction-novum.mcVersion");
 	let showIcons = atom.config.get("mcfunction-novum.showIcons");
+	let latestVersion = atom.config.get("mcfunction-novum.latestVersion");
 
-	if(atom.config.get("mcfunction-novum.mcVersion") != null) {
+	if(mcVersion != null) {
 		atom.config.set("mcfunction-novum.autocomplete.mcVersion", mcVersion);
 		atom.config.unset("mcfunction-novum.mcVersion");
 	}
 
-	if(atom.config.get("mcfunction-novum.showIcons") != null) {
+	if(showIcons != null) {
 		atom.config.set("mcfunction-novum.autocomplete.showIcons", showIcons);
 		atom.config.unset("mcfunction-novum.showIcons");
+	}
+
+	if (latestVersion != null) {
+		that.packageStorage = new PackageStorage({version: (latestVersion - 1)});
+		atom.config.unset("mcfunction-novum.latestVersion");
+	}
+}
+
+class PackageStorage {
+	constructor(state) {
+		this.version = (state?.version)? state.version : versions.length - 1;
+	}
+
+	serialize() {
+		return {
+			version: this.version
+		}
 	}
 }
