@@ -1,18 +1,22 @@
 [
 	{
 		"name": "1.16.5",
-		"folder": "1.16"
+		"folder": "1.16",
+		"type": "release"
 	},
 	{
 		"name": "1.17-1.17.1",
-		"folder": "1.17"
+		"folder": "1.17",
+		"type": "release"
 	},
 	{
 		"name": "1.18-1.18.1",
-		"folder": "1.18"
+		"folder": "1.18",
+		"type": "release"
 	},
 	{
 		"name": "1.18.2 Pre-release 1",
-		"folder": "1.18.2"
+		"folder": "1.18.2",
+		"type": "snapshot"
 	}
 ]

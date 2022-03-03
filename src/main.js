@@ -142,6 +142,31 @@ module.exports = {
 				]
 			});
 		}
+
+		if (getLatestRelaseVersion() != this.packageStorage.releaseVersion && this.packageStorage.releaseVersion < getLatestRelaseVersion()) {
+			let notification = atom.notifications.addInfo("mcfunction-novum",
+				{
+					dismissable: true,
+					description: `The version **${versions[versions.length - 1].name}** has been added to mcfunction-novum.  \nDo you want to switch to this version?  \n  \n(You can always switch back to your old version using the package settings)`,
+					buttons: [
+						{
+							text: "Yes",
+							className: "popup-btn",
+							onDidClick: () => {
+								atom.config.set("mcfunction-novum.autocomplete.mcVersion", getLatestRelaseVersion());
+								notification.dismiss();
+							}
+						},
+						{
+							text: "No",
+							className: "popup-btn",
+							onDidClick: () => {
+								notification.dismiss();
+							}
+						}
+					]
+				});
+		}
 		
 		this.packageStorage = new PackageStorage();
 
@@ -197,14 +222,20 @@ function moveSettings(that) {
 	}
 }
 
+function getLatestRelaseVersion() {
+	return versions.filter(v => v.type == "release").length - 1;
+}
+
 class PackageStorage {
 	constructor(state) {
 		this.version = (state?.version)? state.version : versions.length - 1;
+		this.releaseVersion = (state?.version) ? state.releaseVersion : getLatestRelaseVersion();
 	}
 
 	serialize() {
 		return {
-			version: this.version
+			version: this.version,
+			releaseVersion: this.releaseVersion
 		}
 	}
 }
