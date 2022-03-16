@@ -15,8 +15,8 @@
 		"type": "release"
 	},
 	{
-		"name": "1.18.2 Pre-release 1",
+		"name": "1.18.2",
 		"folder": "1.18.2",
-		"type": "snapshot"
+		"type": "release"
 	}
 ]
