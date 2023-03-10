@@ -1,7 +1,8 @@
 # [1.18.2] mcfunction language support for atom
 
 ## Info
-This is a fork of https://github.com/Bassab03/mcfunction (orignal author: [Yurihaia](https://github.com/Yurihaia)). I have not created the base of this package, all the credits for that goes to Yurihaia, but I know how to edit the package to support the newest commands and items and I will also add quality of life changes. My goal is to keep the package up to date with the latest snapshots.
+This package is no longer supported because of the sunsetting of Atom.
+This is a fork of https://github.com/Bassab03/mcfunction (orignal author: [Yurihaia](https://github.com/Yurihaia)). I have not created the base of this package, all the credits for that goes to Yurihaia, but I know how to edit the package to support the newest commands and items and I will also add quality of life changes.
 
 ## Features
 - Syntax highlighting
