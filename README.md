@@ -1,7 +1,8 @@
 # [1.18.2] mcfunction language support for atom
 
 ## Info
-This package is no longer supported because of the sunsetting of Atom.  
+This package is searching for new maintainers. It needs to be tested for [Pulsar](https://pulsar-edit.dev/) a fork of Atom.
+
 This is a fork of https://github.com/Bassab03/mcfunction (original author: [Yurihaia](https://github.com/Yurihaia)). I have not created the base of this package, all the credits for that goes to Yurihaia, but I know how to edit the package to support the newest commands and items and I will also add quality of life changes.
 
 ## Features
