@@ -1,0 +1,23 @@
+[
+  "+ minecraft:ancient_city_replaceable",
+  "+ minecraft:ancient_city_replaceable",
+  "+ minecraft:completes_find_tree_tutorial",
+  "+ minecraft:convertable_to_mud",
+  "+ minecraft:dampens_vibrations",
+  "+ minecraft:dead_bush_may_place_on",
+  "+ minecraft:dragon_transparent",
+  "+ minecraft:frog_prefer_jump_to",
+  "+ minecraft:frogs_spawnable_on",
+  "+ minecraft:mangrove_logs",
+  "+ minecraft:mangrove_logs_can_grow_through",
+  "+ minecraft:mangrove_roots_can_grow_through",
+  "+ minecraft:nether_carver_replaceables",
+  "+ minecraft:overworld_carver_replaceables",
+  "+ minecraft:overworld_natural_logs",
+  "+ minecraft:sculk_replaceable_world_gen",
+  "+ minecraft:snaps_goat_horn",
+  "+ minecraft:snow_layer_can_survive_on",
+  "+ minecraft:snow_layer_cannot_survive_on"
+  "~ minecraft:polar_bears_spawnable_on_in_frozen_ocean minecraft:polar_bears_spawnable_on_alternate.",
+  "~ minecraft:carpets minecraft:wool_carpets."
+]
