@@ -17,6 +17,8 @@
   "+ minecraft:recipes/building_blocks/mud_brick_stairs",
   "+ minecraft:recipes/building_blocks/mud_brick_stairs_from_mud_bricks_stonecutting",
   "+ minecraft:recipes/building_blocks/packed_mud",
+  "+ minecraft:recipes/decorations/mud_brick_wall",
+  "+ minecraft:recipes/decorations/mud_brick_wall_from_mud_bricks_stonecutting",
   "+ minecraft:recipes/misc/music_disc_5",
   "+ minecraft:recipes/tools/recovery_compass",
   "+ minecraft:recipes/transportation/acacia_chest_boat",
