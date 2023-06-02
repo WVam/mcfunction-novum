@@ -1,4 +1,30 @@
 [
-  "+ minecraft:allay_deliver_cake_to_note_block",
-  "+ minecraft:tadpole_in_a_bucket
+  "+ minecraft:adventure/avoid_vibration",
+  "+ minecraft:adventure/kill_mob_near_sculk_catalyst",
+  "+ minecraft:husbandry/allay_deliver_cake_to_note_block",
+  "+ minecraft:husbandry/allay_deliver_item_to_player",
+  "+ minecraft:husbandry/froglights",
+  "+ minecraft:husbandry/leash_all_frog_variants",
+  "+ minecraft:husbandry/tadpole_in_a_bucket",
+  "+ minecraft:recipes/building_blocks/mangrove_planks",
+  "+ minecraft:recipes/building_blocks/mangrove_slab",
+  "+ minecraft:recipes/building_blocks/mangrove_stairs",
+  "+ minecraft:recipes/building_blocks/mangrove_wood",
+  "+ minecraft:recipes/building_blocks/muddy_mangrove_roots",,
+  "+ minecraft:recipes/building_blocks/mud_bricks",
+  "+ minecraft:recipes/building_blocks/mud_brick_slab",
+  "+ minecraft:recipes/building_blocks/mud_brick_slab_from_mud_bricks_stonecutting",
+  "+ minecraft:recipes/building_blocks/mud_brick_stairs",
+  "+ minecraft:recipes/building_blocks/mud_brick_stairs_from_mud_bricks_stonecutting"
+  "+ minecraft:recipes/building_blocks/packed_mud",
+  "+ minecraft:recipes/misc/music_disc_5",
+  "+ minecraft:recipes/tools/recovery_compass",
+  "+ minecraft:recipes/transportation/acacia_chest_boat",
+  "+ minecraft:recipes/transportation/birch_chest_boat",
+  "+ minecraft:recipes/transportation/dark_oak_chest_boat",
+  "+ minecraft:recipes/transportation/jungle_chest_boat",
+  "+ minecraft:recipes/transportation/mangrove_boat",
+  "+ minecraft:recipes/transportation/mangrove_chest_boat",
+  "+ minecraft:recipes/transportation/oak_chest_boat",
+  "+ minecraft:recipes/transportation/spruce_chest_boat"
 ]
